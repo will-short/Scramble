@@ -139,7 +139,7 @@ function App() {
         <GameHeader>
           <Chip label={`Streak: ${streak}`} variant="outlined" color="success" />
           <Button onClick={() => {
-            navigator.clipboard.writeText(`Scramble:\n Correct:${gamesWon}\n Streak:${streak}\n Wrong:${guesses}`)
+            navigator.clipboard.writeText(`Scramble:\n ✅Correct:${gamesWon}\n ⚡Streak:${streak}\n 🟥Wrong:${guesses}`)
             setOpen(true);
           }}>
             Share Score
