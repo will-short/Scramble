@@ -14,10 +14,7 @@ function App() {
   const [guesses, setGuesses] = useState(0);
   const [streak, setStreak] = useState(0);
   const [open, setOpen] = useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
+  const [red, setRed] = useState(false);
 
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
@@ -85,8 +82,12 @@ function App() {
       setStreak(streak + 1)
       return setWon(true)
     } else {
-      setStreak(0)
-      setGuesses(guesses + 1)
+      setStreak(0);
+      setGuesses(guesses + 1);
+      setRed(true);
+      setTimeout(() => {
+        setRed(false)
+      }, 600)
     }
   }
 
@@ -107,6 +108,9 @@ function App() {
     grid-template-columns: repeat(5, 1fr);
     gap: 1vw;
     position: relative;
+    .red {
+      background-color: #ffcccb;
+    }
   `
   const GameHeader = styled.div`
     grid-column: span 5;
@@ -120,7 +124,7 @@ function App() {
     aspect-ratio: 1;
     border: 1px solid grey;
     z-index: 10;
-    background-color: ${won ? '#228B22' : 'none'}
+    background-color: ${won ? '#90EE90' : 'none'};
   `
 
   return (
@@ -148,6 +152,7 @@ function App() {
               key={i}
               onDrop={(e) => drop(e, i)}
               onDragOver={allowDrop}
+              className={red && 'red'}
             >
               <Tile
                 letter={char}
@@ -163,7 +168,7 @@ function App() {
           <Button variant="contained" size="large" color="success" disabled={!!won} onClick={checkGame}>Guess</Button>
         </GameHeader>
       </Game>
-      <Snackbar open={open} autoHideDuration={3000} onClose={handleClose}>
+      <Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>
         <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
           Copied Scores
         </Alert>
