@@ -1,5 +1,5 @@
 import { Box } from '@mui/material'
-export default function Tile({ letter, drag, won }) {
+export default function Tile({ letter, drag, won, red }) {
 
     return (
         <Box
@@ -13,7 +13,7 @@ export default function Tile({ letter, drag, won }) {
                 margin: 0,
                 padding: 0,
                 fontSize: '5rem',
-                pointerEvents: won && 'none',
+                pointerEvents: won || red && 'none',
                 '&:hover': {
                     backgroundColor: 'primary.main',
                     opacity: [0.9, 0.8, 0.7],

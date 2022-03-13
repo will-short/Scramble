@@ -35,6 +35,7 @@ function App() {
   }
   function handleReset() {
     if (!won) setStreak(0)
+    setRed(false);
     setWon(false);
     setUsedWords([...usedWords, word]);
     setWord(generateWord())
@@ -85,9 +86,6 @@ function App() {
       setStreak(0);
       setGuesses(guesses + 1);
       setRed(true);
-      setTimeout(() => {
-        setRed(false)
-      }, 600)
     }
   }
 
@@ -157,6 +155,7 @@ function App() {
               <Tile
                 letter={char}
                 won={won}
+                red={red}
                 drag={(e) => drag(e, i)}
               />
             </GameSpace>
@@ -164,8 +163,8 @@ function App() {
           )
         }
         <GameHeader>
-          <Button variant="outlined" size="large" onClick={handleReset}>{won ? 'Next' : 'Skip'}</Button>
-          <Button variant="contained" size="large" color="success" disabled={!!won} onClick={checkGame}>Guess</Button>
+          <Button variant="outlined" size="large" onClick={handleReset}>{won || red ? 'Next' : 'Skip'}</Button>
+          <Button variant="contained" size="large" color="success" disabled={!!won || !!red} onClick={checkGame}>Guess</Button>
         </GameHeader>
       </Game>
       <Snackbar open={open} autoHideDuration={1000} onClose={handleClose}>
